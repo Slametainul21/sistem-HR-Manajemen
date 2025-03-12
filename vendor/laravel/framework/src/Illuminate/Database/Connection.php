@@ -343,7 +343,9 @@ class Connection implements ConnectionInterface
     public function query()
     {
         return new QueryBuilder(
-            $this, $this->getQueryGrammar(), $this->getPostProcessor()
+            $this,
+            $this->getQueryGrammar(),
+            $this->getPostProcessor()
         );
     }
 
@@ -483,10 +485,11 @@ class Connection implements ConnectionInterface
             // mode and prepare the bindings for the query. Once that's done we will be
             // ready to execute the query against the database and return the cursor.
             $statement = $this->prepared($this->getPdoForSelect($useReadPdo)
-                              ->prepare($query));
+                ->prepare($query));
 
             $this->bindValues(
-                $statement, $this->prepareBindings($bindings)
+                $statement,
+                $this->prepareBindings($bindings)
             );
 
             // Next, we'll execute the query against the database and return the statement
@@ -783,7 +786,10 @@ class Connection implements ConnectionInterface
             $result = $this->runQueryCallback($query, $bindings, $callback);
         } catch (QueryException $e) {
             $result = $this->handleQueryException(
-                $e, $query, $bindings, $callback
+                $e,
+                $query,
+                $bindings,
+                $callback
             );
         }
 
@@ -791,7 +797,9 @@ class Connection implements ConnectionInterface
         // then log the query, bindings, and execution time so we will report them on
         // the event that the developer needs them. We'll log time in milliseconds.
         $this->logQuery(
-            $query, $bindings, $this->getElapsedTime($start)
+            $query,
+            $bindings,
+            $this->getElapsedTime($start)
         );
 
         return $result;
@@ -822,12 +830,18 @@ class Connection implements ConnectionInterface
         catch (Exception $e) {
             if ($this->isUniqueConstraintError($e)) {
                 throw new UniqueConstraintViolationException(
-                    $this->getName(), $query, $this->prepareBindings($bindings), $e
+                    $this->getName(),
+                    $query,
+                    $this->prepareBindings($bindings),
+                    $e
                 );
             }
 
             throw new QueryException(
-                $this->getName(), $query, $this->prepareBindings($bindings), $e
+                $this->getName(),
+                $query,
+                $this->prepareBindings($bindings),
+                $e
             );
         }
     }
@@ -960,7 +974,10 @@ class Connection implements ConnectionInterface
         }
 
         return $this->tryAgainIfCausedByLostConnection(
-            $e, $query, $bindings, $callback
+            $e,
+            $query,
+            $bindings,
+            $callback
         );
     }
 
@@ -1363,8 +1380,10 @@ class Connection implements ConnectionInterface
             return $this->getPdo();
         }
 
-        if ($this->readOnWriteConnection ||
-            ($this->recordsModified && $this->getConfig('sticky'))) {
+        if (
+            $this->readOnWriteConnection ||
+            ($this->recordsModified && $this->getConfig('sticky'))
+        ) {
             return $this->getPdo();
         }
 
@@ -1443,7 +1462,7 @@ class Connection implements ConnectionInterface
      */
     public function getNameWithReadWriteType()
     {
-        return $this->getName().($this->readWriteType ? '::'.$this->readWriteType : '');
+        return $this->getName() . ($this->readWriteType ? '::' . $this->readWriteType : '');
     }
 
     /**
@@ -1619,7 +1638,7 @@ class Connection implements ConnectionInterface
      */
     public function getRawQueryLog()
     {
-        return array_map(fn (array $log) => [
+        return array_map(fn(array $log) => [
             'raw_query' => $this->queryGrammar->substituteBindingsIntoRawSql(
                 $log['query'],
                 $this->prepareBindings($log['bindings'])
