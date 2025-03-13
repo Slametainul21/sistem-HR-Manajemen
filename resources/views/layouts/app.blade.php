@@ -34,11 +34,25 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto"></ul>
+                    <ul class="navbar-nav me-auto">
+                        @auth
+                            @if(auth()->user()->role_id === 0)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('hr.index') }}">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('materials.create') }}">Add Material</a>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('employee.index') }}">Dashboard</a>
+                                </li>
+                            @endif
+                        @endauth
+                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -75,6 +89,22 @@
         </nav>
 
         <main class="py-4">
+            @if(session('success'))
+                <div class="container">
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="container">
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                </div>
+            @endif
+
             @yield('content')
         </main>
     </div>
