@@ -6,11 +6,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\FeedbackController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // Authentication Routes
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -32,9 +30,9 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Employee routes
-    Route::middleware(['employee'])->group(function () {
-        Route::get('/employee', [App\Http\Controllers\Employee\DashboardController::class, 'index'])->name('employee.index');
-    });
+    // Route::middleware(['employee'])->group(function () {
+    //     Route::get('/employee', [App\Http\Controllers\Employee\DashboardController::class, 'index'])->name('employee.index');
+    // });
 });
 Route::middleware(['auth', 'hr'])->group(function () {
     Route::get('/materials/create', [MaterialController::class, 'create'])->name('materials.create');
