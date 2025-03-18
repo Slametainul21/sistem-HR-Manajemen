@@ -59,7 +59,7 @@
                                     <i class="fas fa-sign-in-alt me-2"></i>Sign In
                                 </button>
 
-                                @if (Route::has('password.request'))
+                                @if (Route::has('forget.password.get'))
                                     <div class="text-center">
                                         <a class="text-muted text-decoration-none hover:text-primary" href="{{ route('forget.password.get') }}">
                                             Forgot Your Password?
