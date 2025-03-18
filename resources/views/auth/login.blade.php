@@ -45,15 +45,6 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group mb-4">
-                                <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="custom-control-label text-muted" for="remember">
-                                        Remember Me
-                                    </label>
-                                </div>
-                            </div>
-
                             <div class="form-group mb-0">
                                 <button type="submit" class="btn btn-primary w-100 py-2 mb-3">
                                     <i class="fas fa-sign-in-alt me-2"></i>Sign In
