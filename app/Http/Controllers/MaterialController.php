@@ -50,8 +50,10 @@ class MaterialController extends Controller
         $material = new Material($request->except('departments'));
         
         if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('materials');
-            $material->file_path = $path;
+            $file = $request->file('file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('materials', $filename, 'public');
+            $data['file'] = $filename; // Make sure this line exists
         }
 
         $material->created_by = auth()->id();
@@ -85,9 +87,9 @@ class MaterialController extends Controller
         if ($request->hasFile('file')) {
             // Delete old file if exists
             if ($material->file_path) {
-                Storage::delete($material->file_path);
+                Storage::disk('public')->delete($material->file_path);
             }
-            $path = $request->file('file')->store('materials');
+            $path = $request->file('file')->store('materials', 'public');
             $material->file_path = $path;
         }
 
@@ -101,6 +103,13 @@ class MaterialController extends Controller
 
     public function show(Material $material)
     {
+        $user = auth()->user();
+        
+        // Check if user has access to this material
+        if (!$user->isHR() && !$user->canAccessMaterial($material)) {
+            return redirect()->route('employee.index')->with('error', 'You do not have permission to view this material.');
+        }
+
         // Increment view count
         $material->increment('views');
 
@@ -118,7 +127,7 @@ class MaterialController extends Controller
         }
 
         // Check if file exists
-        if (!$material->file_path || !Storage::exists($material->file_path)) {
+        if (!$material->file_path || !Storage::disk('public')->exists($material->file_path)) {
             return redirect()->back()->with('error', 'File not found.');
         }
 
@@ -126,7 +135,7 @@ class MaterialController extends Controller
         $originalName = basename($material->file_path);
 
         // Return file download response
-        return Storage::download($material->file_path, $originalName);
+        return Storage::disk('public')->download($material->file_path, $originalName);
     }
 
     public function destroy(Material $material)

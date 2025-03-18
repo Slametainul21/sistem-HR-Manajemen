@@ -3,44 +3,26 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    public function showLoginForm()
-    {
-        return view('auth.login');
-    }
+    use AuthenticatesUsers;
 
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+    // Remove or comment out the default redirect path
+    // protected $redirectTo = '/home';
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            
-            // Redirect based on user role to the correct index view
-            if (auth()->user()->role_id === 0) {
-                return redirect()->route('hr.index');
-            } else {
-                return redirect()->route('employee.index');
-            }
+    // Add this method to override the default redirect
+    protected function redirectTo()
+    {
+        if (auth()->user()->isHR()) {
+            return route('hr.index');
         }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+        return route('employee.index');
     }
 
-    public function logout(Request $request)
+    public function __construct()
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/');
+        $this->middleware('guest')->except('logout');
     }
 }

@@ -1,20 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Employee\DashboardController;
+use App\Http\Controllers\EmployeeController;
 
+// Landing page route
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Authentication Routes
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
+
+// Password Reset Routes
+Auth::routes(['reset' => true, 'register' => false, 'login' => false]);
 
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
@@ -31,8 +39,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Employee routes
-    Route::middleware(['employee'])->group(function () {
-        Route::get('/employee', [App\Http\Controllers\Employee\DashboardController::class, 'index'])->name('employee.index');
+    Route::middleware(['auth', 'employee'])->group(function () {
+        Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
     });
 });
 Route::middleware(['auth', 'hr'])->group(function () {
@@ -42,6 +50,33 @@ Route::middleware(['auth', 'hr'])->group(function () {
     Route::put('/materials/{material}', [MaterialController::class, 'update'])->name('materials.update');
     Route::delete('/materials/{material}', [MaterialController::class, 'destroy'])->name('materials.destroy');
     
-    Route::get('/feedbacks/review/{feedback}', [FeedbackController::class, 'review'])->name('feedbacks.review');
-    Route::post('/feedbacks/review/{feedback}', [FeedbackController::class, 'storeReview'])->name('feedbacks.storeReview');
+    // Add these routes in your auth middleware group
+    Route::post('/materials/{material}/feedback', [FeedbackController::class, 'store'])->name('materials.feedback.store');
+    
+    // Add these in your HR middleware group
+    Route::get('/feedbacks/{feedback}/review', [FeedbackController::class, 'review'])->name('feedbacks.review');
+    Route::post('/feedbacks/{feedback}/review', [FeedbackController::class, 'storeReview'])->name('feedbacks.storeReview');
+});
+
+// Change the root route to point to welcome view
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Keep other routes as they are
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/test-mail', function () {
+    try {
+        Mail::raw('Test email from HR Management System', function($message) {
+            $message->to('sistemmanajemenhr98@gmail.com')
+                   ->subject('Test Email');
+        });
+        return 'Email sent successfully!';
+    } catch (\Exception $e) {
+        return 'Error sending email: ' . $e->getMessage();
+    }
 });

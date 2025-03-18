@@ -2,34 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Material;
-use App\Models\Feedback;
+use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    public function dashboard() {
-        return view('employee.dashboard');
-    }
+    public function index()
+    {
+        $user = auth()->user();
+        
+        $materials = Material::with(['category', 'departments'])
+            ->whereHas('departments', function($query) use ($user) {
+                $query->where('department_id', $user->department_id);
+            })
+            ->where('archived', false)
+            ->get();
 
-    public function materials() {
-        $materials = Material::all();
-        return view('employee.materials', compact('materials'));
-    }
-
-    public function viewMaterial($id) {
-        $material = Material::find($id);
-        return view('employee.view_material', compact('material'));
-    }
-
-    public function submitFeedback(Request $request, $id) {
-        Feedback::create([
-            'material_id' => $id,
-            'user_id' => auth()->id(),
-            'feedback' => $request->feedback,
-            'rating' => $request->rating,
-            'status' => 'pending'
-        ]);
-        return redirect()->route('employee.materials');
+        return view('employee.index', compact('materials'));
     }
 }
