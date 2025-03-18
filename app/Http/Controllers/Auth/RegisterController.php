@@ -29,7 +29,13 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected function redirectTo()
+    {
+        if (auth()->user()->role_id == 0) { // HR
+            return route('hr.index');
+        }
+        return route('employee.index'); // Employee
+    }
 
     /**
      * Create a new controller instance.
