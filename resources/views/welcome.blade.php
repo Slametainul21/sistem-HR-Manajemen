@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <img src="{{ asset('images/hero-illustration.svg') }}" alt="Hero" class="img-fluid">
+                    <img src="{{ asset('images/employee.png') }}" alt="Hero" class="img-fluid">
                 </div>
             </div>
         </div>
