@@ -9,15 +9,20 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Employee\DashboardController;
 use App\Http\Controllers\EmployeeController;
 
+// Landing page route
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Authentication Routes
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
-Auth::routes(['reset' => true]);
+
+// Password Reset Routes
+Auth::routes(['reset' => true, 'register' => false, 'login' => false]);
 
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
@@ -53,6 +58,12 @@ Route::middleware(['auth', 'hr'])->group(function () {
     Route::post('/feedbacks/{feedback}/review', [FeedbackController::class, 'storeReview'])->name('feedbacks.storeReview');
 });
 
+// Change the root route to point to welcome view
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Keep other routes as they are
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
