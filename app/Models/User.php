@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
-    protected $table = 'tbl_users';
+    protected $table = 'tbl_users'; // Specify the correct table name
 
     protected $fillable = [
         'name', 'email', 'password', 'role_id', 'department_id'
