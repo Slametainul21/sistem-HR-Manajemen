@@ -2,12 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
+use illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Employee\DashboardController;
 use App\Http\Controllers\EmployeeController;
+
 
 // Landing page route
 Route::get('/', function () {
@@ -80,3 +83,9 @@ Route::get('/test-mail', function () {
         return 'Error sending email: ' . $e->getMessage();
     }
 });
+
+
+route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
