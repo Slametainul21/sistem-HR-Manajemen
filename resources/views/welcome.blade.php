@@ -10,7 +10,7 @@
                     <h1 class="display-4 fw-bold mb-4">Transform Your Workplace Knowledge</h1>
                     <p class="lead mb-4">Empower your organization with our comprehensive Knowledge Management System. Share, learn, and grow together.</p>
                     <div class="d-flex gap-3">
-                        <a href="{{ route('login') }}" class="btn btn-primary btn-lg">Get Started</a>
+                        <a href="{{ route('login') }}" class="btn btn-primary btn-lg">Start Now</a>
                         <a href="#features" class="btn btn-outline-primary btn-lg">Learn More</a>
                     </div>
                 </div>
