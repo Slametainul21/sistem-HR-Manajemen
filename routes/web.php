@@ -45,8 +45,12 @@ Route::middleware(['auth', 'hr'])->group(function () {
     Route::put('/materials/{material}', [MaterialController::class, 'update'])->name('materials.update');
     Route::delete('/materials/{material}', [MaterialController::class, 'destroy'])->name('materials.destroy');
     
-    Route::get('/feedbacks/review/{feedback}', [FeedbackController::class, 'review'])->name('feedbacks.review');
-    Route::post('/feedbacks/review/{feedback}', [FeedbackController::class, 'storeReview'])->name('feedbacks.storeReview');
+    // Add these routes in your auth middleware group
+    Route::post('/materials/{material}/feedback', [FeedbackController::class, 'store'])->name('materials.feedback.store');
+    
+    // Add these in your HR middleware group
+    Route::get('/feedbacks/{feedback}/review', [FeedbackController::class, 'review'])->name('feedbacks.review');
+    Route::post('/feedbacks/{feedback}/review', [FeedbackController::class, 'storeReview'])->name('feedbacks.storeReview');
 });
 
 Auth::routes();

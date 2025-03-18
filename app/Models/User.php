@@ -42,4 +42,9 @@ class User extends Authenticatable
 
         return $material->departments()->where('department_id', $this->department_id)->exists();
     }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
+    }
 }

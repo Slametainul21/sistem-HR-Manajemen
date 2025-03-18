@@ -5,43 +5,32 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Review Feedback</div>
+                <div class="card-header">
+                    Review Feedback
+                    <a href="{{ route('hr.index') }}" class="btn btn-secondary btn-sm float-end">Back</a>
+                </div>
 
                 <div class="card-body">
-                    <div class="feedback-details mb-4">
-                        <h5>Original Feedback</h5>
-                        <p><strong>Material:</strong> {{ $feedback->material->title }}</p>
-                        <p><strong>User:</strong> {{ $feedback->user->name }}</p>
-                        <p><strong>Feedback:</strong> {{ $feedback->feedback }}</p>
-                        <p><strong>Rating:</strong> {{ $feedback->rating }}/5</p>
+                    <div class="mb-4">
+                        <h5>Material: {{ $feedback->material->title }}</h5>
+                        <p class="text-muted">Submitted by: {{ $feedback->user->name }}</p>
                     </div>
 
-                    <form method="POST" action="{{ route('feedbacks.storeReview', $feedback->id) }}">
+                    <div class="mb-4">
+                        <h5>Feedback Content:</h5>
+                        <p>{{ $feedback->content }}</p>
+                    </div>
+
+                    <form action="{{ route('feedbacks.storeReview', $feedback->id) }}" method="POST">
                         @csrf
-
                         <div class="form-group">
-                            <label for="review">Your Review</label>
-                            <textarea class="form-control @error('review') is-invalid @enderror" id="review" name="review" rows="4" required>{{ old('review') }}</textarea>
-                            @error('review')
+                            <label for="hr_response">Your Response</label>
+                            <textarea name="hr_response" id="hr_response" class="form-control @error('hr_response') is-invalid @enderror" rows="3" required>{{ old('hr_response', $feedback->hr_response) }}</textarea>
+                            @error('hr_response')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
-
-                        <div class="form-group">
-                            <label for="score">Score</label>
-                            <select class="form-control @error('score') is-invalid @enderror" id="score" name="score" required>
-                                <option value="">Select Score</option>
-                                @for($i = 1; $i <= 5; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                            @error('score')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Submit Review</button>
-                        <a href="{{ route('feedbacks.index') }}" class="btn btn-secondary">Back</a>
+                        <button type="submit" class="btn btn-primary mt-3">Submit Response</button>
                     </form>
                 </div>
             </div>

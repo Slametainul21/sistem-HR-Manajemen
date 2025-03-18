@@ -6,32 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Feedback extends Model
 {
-    protected $table = 'tbl_feedbacks';
-
     protected $fillable = [
-        'material_id',
         'user_id',
-        'feedback',
-        'rating',
-        'status',
-        'status_read',
-        'created_by',
-        'updated_by',
-        'archived'
+        'material_id',
+        'content',
+        'hr_response',
+        'status'
     ];
-
-    public function material()
-    {
-        return $this->belongsTo(Material::class, 'material_id');
-    }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function reviews()
+    public function material()
     {
-        return $this->hasMany(FeedbackReview::class, 'feedback_id');
+        return $this->belongsTo(Material::class);
     }
 }

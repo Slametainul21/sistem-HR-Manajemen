@@ -53,6 +53,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role_id' => ['required', 'string', 'in:0,1'],
+            'department_id' => ['required', 'exists:tbl_departments,id'],
         ]);
     }
 
@@ -68,12 +70,18 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role_id' => $data['role_id'],
+            'department_id' => $data['department_id'],
         ]);
     }
 
     public function showRegistrationForm()
     {
         $departments = Department::all();
-        return view('auth.register', compact('departments'));
+        $roles = [
+            (object)['id' => '0', 'name' => 'HR'],
+            (object)['id' => '1', 'name' => 'Employee']
+        ];
+        return view('auth.register', compact('departments', 'roles'));
     }
 }

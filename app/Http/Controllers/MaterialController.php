@@ -50,8 +50,10 @@ class MaterialController extends Controller
         $material = new Material($request->except('departments'));
         
         if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('materials', 'public');
-            $material->file_path = $path;
+            $file = $request->file('file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('materials', $filename, 'public');
+            $data['file'] = $filename; // Make sure this line exists
         }
 
         $material->created_by = auth()->id();

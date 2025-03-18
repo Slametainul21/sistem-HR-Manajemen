@@ -1,106 +1,129 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="mb-0">Create New Material</h4>
+        <div class="col-md-10">
+            <div class="card border-0 shadow-lg rounded-lg">
+                <div class="card-header bg-primary text-white p-4 border-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Create New Learning Material</h4>
+                        <a href="{{ route('hr.index') }}" class="btn btn-light btn-sm">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                        </a>
+                    </div>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form method="POST" action="{{ route('materials.store') }}" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="form-group mb-3">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" 
-                                id="title" name="title" value="{{ old('title') }}" required>
-                            @error('title')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="category_id">Category</label>
-                            <select class="form-control @error('category_id') is-invalid @enderror" 
-                                id="category_id" name="category_id" required>
-                                <option value="">Select Category</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('category_id')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="description">Description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" 
-                                id="description" name="description" rows="5" required>{{ old('description') }}</textarea>
-                            @error('description')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label>Available for Departments</label>
-                            <div class="card card-body bg-light">
-                                <div class="form-check mb-2">
-                                    <input type="checkbox" id="select-all-departments" class="form-check-input">
-                                    <label class="form-check-label" for="select-all-departments">Select All</label>
-                                </div>
-                                <div class="department-list">
-                                    @foreach($departments as $department)
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input department-checkbox" 
-                                                name="departments[]" 
-                                                value="{{ $department->id }}" 
-                                                id="department-{{ $department->id }}"
-                                                {{ (is_array(old('departments')) && in_array($department->id, old('departments'))) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="department-{{ $department->id }}">
-                                                {{ $department->name }}
-                                            </label>
-                                        </div>
-                                    @endforeach
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label text-muted">Title</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-0">
+                                            <i class="fas fa-heading text-primary"></i>
+                                        </span>
+                                        <input type="text" class="form-control bg-light border-0 @error('title') is-invalid @enderror" 
+                                               name="title" value="{{ old('title') }}" required>
+                                    </div>
+                                    @error('title')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
-                            @error('departments')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
 
-                        <div class="form-group mb-3">
-                            <label for="file">Upload File</label>
-                            <div class="custom-file">
-                                <input type="file" class="form-control @error('file') is-invalid @enderror" 
-                                    id="file" name="file">
-                                <small class="form-text text-muted">
-                                    Supported formats: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX (Max size: 10MB)
-                                </small>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label text-muted">Category</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-0">
+                                            <i class="fas fa-tag text-primary"></i>
+                                        </span>
+                                        <select class="form-select bg-light border-0 @error('category_id') is-invalid @enderror" 
+                                                name="category_id" required>
+                                            <option value="">Select Category</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('category_id')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
-                            @error('file')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
 
-                        <div class="form-group mb-3">
-                            <label for="link">External Link (Optional)</label>
-                            <input type="url" class="form-control @error('link') is-invalid @enderror" 
-                                id="link" name="link" value="{{ old('link') }}"
-                                placeholder="https://example.com">
-                            @error('link')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label text-muted">Description</label>
+                                    <textarea class="form-control bg-light border-0 @error('description') is-invalid @enderror" 
+                                              name="description" rows="5" required>{{ old('description') }}</textarea>
+                                    @error('description')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
 
-                        <div class="form-group text-end">
-                            <a href="{{ route('materials.index') }}" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Create Material</button>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label text-muted">File Attachment</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-0">
+                                            <i class="fas fa-file text-primary"></i>
+                                        </span>
+                                        <input type="file" class="form-control bg-light border-0 @error('file') is-invalid @enderror" 
+                                               name="file">
+                                    </div>
+                                    @error('file')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label text-muted">External Link</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-0">
+                                            <i class="fas fa-link text-primary"></i>
+                                        </span>
+                                        <input type="url" class="form-control bg-light border-0 @error('link') is-invalid @enderror" 
+                                               name="link" value="{{ old('link') }}">
+                                    </div>
+                                    @error('link')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label text-muted">Available for Departments</label>
+                                    <div class="row g-3">
+                                        @foreach($departments as $department)
+                                            <div class="col-md-4">
+                                                <div class="form-check custom-checkbox">
+                                                    <input type="checkbox" class="form-check-input" 
+                                                           name="departments[]" value="{{ $department->id }}"
+                                                           id="dept{{ $department->id }}">
+                                                    <label class="form-check-label" for="dept{{ $department->id }}">
+                                                        {{ $department->name }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary px-5">
+                                    <i class="fas fa-save me-2"></i>Create Material
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -109,31 +132,34 @@
     </div>
 </div>
 
-@push('styles')
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-@endpush
+<style>
+.form-control:focus, .form-select:focus {
+    box-shadow: none;
+    border-color: #4a90e2;
+}
 
-@push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('#description').summernote({
-        height: 200,
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            ['insert', ['link']],
-            ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-    });
+.input-group-text {
+    border-right: none;
+}
 
-    $('#select-all-departments').change(function() {
-        $('.department-checkbox').prop('checked', this.checked);
-    });
-});
-</script>
-@endpush
+.form-control, .form-select {
+    border-left: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4a90e2 0%, #3273dc 100%);
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+}
+
+.custom-checkbox .form-check-input:checked {
+    background-color: #4a90e2;
+    border-color: #4a90e2;
+}
+</style>
 @endsection

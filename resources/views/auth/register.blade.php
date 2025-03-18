@@ -1,105 +1,117 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-0 shadow-lg rounded-lg overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
+                    <div class="card-header bg-primary text-white text-center py-4">
+                        <h4 class="mb-0 font-weight-bold">Create Your Account</h4>
+                        <p class="text-white-50 mb-0">Join our knowledge management system</p>
+                    </div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                    <div class="card-body p-5">
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="name" class="form-label text-muted">Full Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-0">
+                                                <i class="fas fa-user text-primary"></i>
+                                            </span>
+                                            <input id="name" type="text" class="form-control border-0 bg-light @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                        </div>
+                                        @error('name')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="email" class="form-label text-muted">Email Address</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-0">
+                                                <i class="fas fa-envelope text-primary"></i>
+                                            </span>
+                                            <input id="email" type="email" class="form-control border-0 bg-light @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
+                                        </div>
+                                        @error('email')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="role_id" class="form-label text-muted">Role</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-0">
+                                                <i class="fas fa-user-tag text-primary"></i>
+                                            </span>
+                                            <select id="role_id" class="form-select border-0 bg-light @error('role_id') is-invalid @enderror" name="role_id" required>
+                                                <option value="">Select Role</option>
+                                                @foreach($roles as $role)
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @error('role_id')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label for="department_id" class="form-label text-muted">Department</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-0">
+                                                <i class="fas fa-building text-primary"></i>
+                                            </span>
+                                            <select id="department_id" class="form-select border-0 bg-light @error('department_id') is-invalid @enderror" name="department_id" required>
+                                                <option value="">Select Department</option>
+                                                @foreach($departments as $department)
+                                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @error('department_id')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="password" class="form-label text-muted">Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-0">
+                                                <i class="fas fa-lock text-primary"></i>
+                                            </span>
+                                            <input id="password" type="password" class="form-control border-0 bg-light @error('password') is-invalid @enderror" name="password" required>
+                                        </div>
+                                        @error('password')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="password-confirm" class="form-label text-muted">Confirm Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-0">
+                                                <i class="fas fa-lock text-primary"></i>
+                                            </span>
+                                            <input id="password-confirm" type="password" class="form-control border-0 bg-light" name="password_confirmation" required>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="role_id" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
-                            <div class="col-md-6">
-                                <select id="role_id" class="form-control @error('role_id') is-invalid @enderror" name="role_id" required>
-                                    <option value="">Select Role</option>
-                                    <option value="0" {{ old('role_id') == '0' ? 'selected' : '' }}>HR</option>
-                                    <option value="1" {{ old('role_id') == '1' ? 'selected' : '' }}>Employee</option>
-                                </select>
-                                @error('role_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3" id="department-section">
-                            <label for="department_id" class="col-md-4 col-form-label text-md-end">{{ __('Division') }}</label>
-                            <div class="col-md-6">
-                                <select id="department_id" class="form-control @error('department_id') is-invalid @enderror" name="department_id">
-                                    <option value="">Select Division</option>
-                                    @foreach($departments as $department)
-                                        <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>
-                                            {{ $department->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('department_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                            <div class="form-group mb-0 text-center">
+                                <button type="submit" class="btn btn-primary px-5 py-2">
+                                    <i class="fas fa-user-plus me-2"></i>Create Account
                                 </button>
                             </div>
-                        </div>
-                    </form>
-
-                    <div class="text-center mt-4">
-                        <p>Already have an account? <a href="{{ route('login') }}">Login</a></p>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -107,22 +119,34 @@
     </div>
 </div>
 
-@push('scripts')
-<script>
-$(document).ready(function() {
-    function toggleDepartmentSection() {
-        if ($('#role_id').val() === '0') {
-            $('#department-section').hide();
-            $('#department_id').removeAttr('required');
-        } else {
-            $('#department-section').show();
-            $('#department_id').attr('required', 'required');
-        }
-    }
+<style>
+.card {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.9);
+}
 
-    $('#role_id').change(toggleDepartmentSection);
-    toggleDepartmentSection(); // Run on page load
-});
-</script>
-@endpush
+.form-control:focus, .form-select:focus {
+    box-shadow: none;
+    border-color: #4a90e2;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4a90e2 0%, #3273dc 100%);
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+}
+
+.input-group-text {
+    border-right: none;
+}
+
+.form-control, .form-select {
+    border-left: none;
+}
+</style>
 @endsection
