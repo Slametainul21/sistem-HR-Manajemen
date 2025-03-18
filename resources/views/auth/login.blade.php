@@ -21,13 +21,15 @@
                                     <span class="input-group-text bg-light border-0">
                                         <i class="fas fa-envelope text-primary"></i>
                                     </span>
-                                    <input id="email" type="email" class="form-control border-0 bg-light @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <input id="email" type="email" 
+                                           class="form-control border-0 bg-light @error('email') is-invalid @enderror" 
+                                           name="email" value="{{ old('email') }}" required autofocus>
+                                    @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
 
                             <div class="form-group mb-4">
@@ -36,13 +38,15 @@
                                     <span class="input-group-text bg-light border-0">
                                         <i class="fas fa-lock text-primary"></i>
                                     </span>
-                                    <input id="password" type="password" class="form-control border-0 bg-light @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                    <input id="password" type="password" 
+                                           class="form-control border-0 bg-light @error('password') is-invalid @enderror" 
+                                           name="password" required>
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
 
                             <div class="form-group mb-0">
