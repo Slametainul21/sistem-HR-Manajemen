@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Employee\DashboardController;
+use App\Http\Controllers\EmployeeController;
 
 
 // Authentication Routes
@@ -31,8 +32,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Employee routes
-    Route::middleware(['employee'])->group(function () {
-        Route::get('/employee', [App\Http\Controllers\Employee\DashboardController::class, 'index'])->name('employee.index');
+    Route::middleware(['auth', 'employee'])->group(function () {
+        Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
     });
 });
 Route::middleware(['auth', 'hr'])->group(function () {

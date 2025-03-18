@@ -65,4 +65,11 @@
         </div>
     </div>
 </div>
+<div class="form-group text-end">
+    @if(auth()->user()->isHR())
+        <a href="{{ route('hr.index') }}" class="btn btn-secondary">Back</a>
+    @else
+        <a href="{{ route('employee.index') }}" class="btn btn-secondary">Back</a>
+    @endif
+</div>
 @endsection
