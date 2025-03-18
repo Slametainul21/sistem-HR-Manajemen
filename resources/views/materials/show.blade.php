@@ -8,9 +8,11 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">{{ $material->title }}</h4>
                     <div>
-                        <a href="{{ route('materials.index') }}" class="btn btn-secondary btn-sm">Back</a>
-                        @if(auth()->user()->role_id === 0)
+                        @if(auth()->user()->isHR())
+                            <a href="{{ route('hr.index') }}" class="btn btn-secondary btn-sm">Back</a>
                             <a href="{{ route('materials.edit', $material->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        @else
+                            <a href="{{ route('employee.index') }}" class="btn btn-secondary btn-sm">Back</a>
                         @endif
                     </div>
                 </div>
@@ -65,11 +67,5 @@
         </div>
     </div>
 </div>
-<div class="form-group text-end">
-    @if(auth()->user()->isHR())
-        <a href="{{ route('hr.index') }}" class="btn btn-secondary">Back</a>
-    @else
-        <a href="{{ route('employee.index') }}" class="btn btn-secondary">Back</a>
-    @endif
-</div>
+<!-- Remove the duplicate back button at the bottom -->
 @endsection

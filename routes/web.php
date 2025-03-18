@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MaterialController;
@@ -16,6 +17,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
+Auth::routes(['reset' => true]);
 
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
@@ -45,4 +47,21 @@ Route::middleware(['auth', 'hr'])->group(function () {
     
     Route::get('/feedbacks/review/{feedback}', [FeedbackController::class, 'review'])->name('feedbacks.review');
     Route::post('/feedbacks/review/{feedback}', [FeedbackController::class, 'storeReview'])->name('feedbacks.storeReview');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/test-mail', function () {
+    try {
+        Mail::raw('Test email from HR Management System', function($message) {
+            $message->to('sistemmanajemenhr98@gmail.com')
+                   ->subject('Test Email');
+        });
+        return 'Email sent successfully!';
+    } catch (\Exception $e) {
+        return 'Error sending email: ' . $e->getMessage();
+    }
 });
