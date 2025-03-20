@@ -45,6 +45,22 @@
                                 </div>
                             </div>
 
+                            @if ($material->feedbacks->count() > 0)
+                                <div class="mt-4">
+                                    <h5 class="text-muted mb-3">Feedback yang Diterima</h5>
+                                    <ul class="list-group">
+                                        @foreach ($material->feedbacks as $feedback)
+                                            <li class="list-group-item">
+                                                <strong>{{ $feedback->user->name }}</strong> -
+                                                <small
+                                                    class="text-muted">{{ \Carbon\Carbon::parse($feedback->created_at)->locale('id')->translatedFormat('j F Y H:i') }}</small>
+                                                <p class="mb-0">{{ $feedback->content }}</p>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <div class="col-md-4">
                                 <div class="card bg-light border-0">
                                     <div class="card-body">
@@ -81,7 +97,8 @@
 
                                         <div class="mt-4">
                                             <h5 class="text-muted mb-3">Feedback</h5>
-                                            <form action="{{ route('feedbacks.storeReview', $material->id) }}" method="POST">
+                                            <form action="{{ route('feedbacks.storeReview', $material->id) }}"
+                                                method="POST">
                                                 @csrf
                                                 <div class="mb-3">
                                                     <textarea name="feedback" class="form-control" rows="3" placeholder="Tulis feedback Anda..." required></textarea>
@@ -90,7 +107,7 @@
                                                     <i class="fas fa-paper-plane me-2"></i>Kirim Feedback
                                                 </button>
                                             </form>
-                                        </div>                                        
+                                        </div>
 
                                         @if ($material->file_path)
                                             <div class="mb-4">
@@ -109,22 +126,6 @@
                                                     class="btn btn-outline-primary btn-sm w-100" target="_blank">
                                                     <i class="fas fa-external-link-alt me-2"></i>Visit Link
                                                 </a>
-                                            </div>
-                                        @endif
-
-                                        @if ($material->feedbacks->count() > 0)
-                                            <div class="mt-4">
-                                                <h5 class="text-muted mb-3">Feedback yang Diterima</h5>
-                                                <ul class="list-group">
-                                                    @foreach ($material->feedbacks as $feedback)
-                                                        <li class="list-group-item">
-                                                            <strong>{{ $feedback->user->name }}</strong> -
-                                                            <small
-                                                                class="text-muted">{{ \Carbon\Carbon::parse($feedback->created_at)->locale('id')->translatedFormat('j F Y H:i') }}</small>
-                                                            <p class="mb-0">{{ $feedback->content }}</p>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
                                             </div>
                                         @endif
                                     </div>
