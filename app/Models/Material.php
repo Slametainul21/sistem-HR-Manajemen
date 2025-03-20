@@ -38,6 +38,6 @@ class Material extends Model
 
     public function feedbacks()
     {
-        return $this->hasMany(Feedback::class);
+        return $this->hasMany(Feedback::class)->orderBy('created_at', 'desc');
     }
 }
