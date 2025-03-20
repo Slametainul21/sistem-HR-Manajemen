@@ -44,8 +44,22 @@
                                     </div>
                                 </div>
 
+                                <div class="mb-4">
+                                    <h5 class="text-muted mb-3">Feedback</h5>
+                                    <form action="{{ route('feedbacks.storeReview', $material->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <textarea name="feedback" class="form-control" rows="3" placeholder="Tulis feedback Anda..." required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-paper-plane me-2"></i>Kirim Feedback
+                                        </button>
+                                    </form>
+                                </div>
+
                                 @if ($material->feedbacks->count() > 0)
-                                    <div class="md-4">
+                                    <div class="mb-4">
                                         <h5 class="text-muted mb-3">Feedback yang Diterima</h5>
                                         <ul class="list-group">
                                             @foreach ($material->feedbacks as $feedback)
@@ -95,20 +109,6 @@
                                                 <i class="fas fa-eye me-1"></i>
                                                 {{ $material->views }}
                                             </p>
-                                        </div>
-
-                                        <div class="mt-4">
-                                            <h5 class="text-muted mb-3">Feedback</h5>
-                                            <form action="{{ route('feedbacks.storeReview', $material->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                <div class="mb-3">
-                                                    <textarea name="feedback" class="form-control" rows="3" placeholder="Tulis feedback Anda..." required></textarea>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary btn-sm">
-                                                    <i class="fas fa-paper-plane me-2"></i>Kirim Feedback
-                                                </button>
-                                            </form>
                                         </div>
 
                                         @if ($material->file_path)
