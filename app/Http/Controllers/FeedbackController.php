@@ -9,17 +9,19 @@ use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
 {
-    public function store(Request $request, Material $material)
+    public function store(Request $request, $materialId)
     {
         $validated = $request->validate([
             'content' => 'required|string|max:500'
         ]);
 
+        $material = Material::findOrFail($materialId);
+
         Feedback::create([
             'user_id' => auth()->id(),
             'material_id' => $material->id,
             'content' => $validated['content'],
-            'status' => 'pending' // Status awal feedback
+            'status' => 'pending'
         ]);
 
         return redirect()->back()->with('success', 'Feedback berhasil dikirim.');

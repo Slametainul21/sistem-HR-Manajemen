@@ -46,11 +46,10 @@
 
                                 <div class="mb-4">
                                     <h5 class="text-muted mb-3">Feedback</h5>
-                                    <form action="{{ route('feedbacks.store', $material->id) }}"
-                                        method="POST">
+                                    <form action="{{ route('feedbacks.store', $material->id) }}" method="POST">
                                         @csrf
                                         <div class="mb-3">
-                                            <textarea name="content" class="form-control" rows="3" placeholder="Tulis feedback Anda..." required></textarea>
+                                            <textarea name="content" class="form-control" rows="3" placeholder="Write your feedback..." required></textarea>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-sm">
                                             <i class="fas fa-paper-plane me-2"></i>Send Feedback

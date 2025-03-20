@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('materials', MaterialController::class);
     Route::resource('feedbacks', FeedbackController::class);
     Route::get('/materials/{material}/download', [App\Http\Controllers\MaterialController::class, 'download'])->name('materials.download');
-    Route::post('/materials/{material}/feedback', [FeedbackController::class, 'store'])->name('materials.feedback.store');
+    Route::post('/materials/{materialId}/feedback', [FeedbackController::class, 'store'])->name('feedbacks.store');
 });
 
 // Add this to your existing routes
