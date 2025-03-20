@@ -19,7 +19,7 @@ class FeedbackReview extends Model
         'archived'
     ];
 
-    public function feedback()
+    public function feedbacks()
     {
         return $this->belongsTo(Feedback::class, 'feedback_id');
     }
