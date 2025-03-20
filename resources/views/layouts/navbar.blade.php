@@ -47,9 +47,8 @@
 </nav>
 
 <style>
-/* Add these styles at the bottom of navbar.blade.php */
 body {
-    padding-top: 2rem; /* Height of navbar + some spacing */
+    padding-top: 24px;  /* Match the negative margin in welcome page */
 }
 
 .navbar {

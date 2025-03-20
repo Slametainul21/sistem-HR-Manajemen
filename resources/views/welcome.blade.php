@@ -145,6 +145,12 @@
 </div>
 
 <style>
+.container,
+.row {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 .landing-page {
     margin: -24px 0 0 0;
     padding: 0;
@@ -162,15 +168,8 @@
 }
 
 .footer {
-    width: 100%;
-    margin: 0;
-    padding: 3rem 0;
-}
-
-/* Remove any duplicate footer class definitions */
-.footer {
-    margin-top: 0;
-    flex-shrink: 0;
+    margin-top: auto;
+    padding: 20px 0; /* Keep padding clean */
 }
 
 .hero {

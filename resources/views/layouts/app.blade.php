@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!-- Add in the head section -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,10 +19,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body>
-    <div id="app">
+<body class="d-flex flex-column min-vh-100">
+    <div id="app" class="d-flex flex-column min-vh-100">
         @include('layouts.navbar')
-        <main class="py-4">
+        <main class="flex-grow-1">
             <div class="main-content">
                 @yield('content')
             </div>
