@@ -53,14 +53,14 @@
                                             <textarea name="content" class="form-control" rows="3" placeholder="Tulis feedback Anda..." required></textarea>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-paper-plane me-2"></i>Kirim Feedback
+                                            <i class="fas fa-paper-plane me-2"></i>Send Feedback
                                         </button>
                                     </form>
                                 </div>
 
                                 @if ($material->feedbacks->count() > 0)
                                     <div class="mb-4">
-                                        <h5 class="text-muted mb-3">Feedback yang Diterima</h5>
+                                        <h5 class="text-muted mb-3">Received Feedbacks</h5>
                                         <ul class="list-group">
                                             @foreach ($material->feedbacks as $feedback)
                                                 <li class="list-group-item">

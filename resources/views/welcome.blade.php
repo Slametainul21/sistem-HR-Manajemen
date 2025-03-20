@@ -91,21 +91,86 @@
             </div>
         </section>
 
-
+        <!-- Footer Section -->
+        <section class="footer bg-dark text-white py-5 mt-auto">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <h5 class="mb-4 text-primary fw-bold">KnowledgeHR</h5>
+                        <p class="mb-4">Empowering organizations through effective knowledge management and continuous learning.</p>
+                        <div class="social-links">
+                            <a href="#" class="me-3 text-white-50 hover-light"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="me-3 text-white-50 hover-light"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-3 text-white-50 hover-light"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-white-50 hover-light"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4">
+                        <h6 class="mb-4 text-white-50 text-uppercase">Quick Links</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">About Us</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Features</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-4">
+                        <h6 class="mb-4 text-white-50 text-uppercase">Resources</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Documentation</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Help Center</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-light">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <h6 class="mb-4 text-white-50 text-uppercase">Newsletter</h6>
+                        <p class="text-white-50">Subscribe to our newsletter for updates</p>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control bg-dark border-dark text-white" placeholder="Enter your email">
+                            <button class="btn btn-primary" type="button">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-5 mb-4 border-secondary">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="mb-0 text-white-50">© {{ date('Y') }} KnowledgeHR. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <small class="text-white-50">Made with <i class="fas fa-heart text-danger"></i> for better workplace learning</small>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
 
 <style>
 .landing-page {
-    margin-top: -24px;
-    overflow-x: hidden;  /* Add this line */
-    width: 100%;         /* Add this line */
+    margin: -24px 0 0 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
 }
 
 .content {
+    flex: 1 0 auto;
     background-color: white;
-    max-width: 100%;     /* Add this line */
-    overflow-x: hidden;  /* Add this line */
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    width: 100%;
+    margin: 0;
+    padding: 3rem 0;
+}
+
+/* Remove any duplicate footer class definitions */
+.footer {
+    margin-top: 0;
+    flex-shrink: 0;
 }
 
 .hero {
@@ -140,6 +205,47 @@
     .hero {
         padding: 60px 0;
     }
+}
+
+.footer {
+    position: relative;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+.hover-light {
+    transition: all 0.3s ease;
+}
+
+.hover-light:hover {
+    color: white !important;
+    opacity: 1;
+}
+
+.social-links a {
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.social-links a:hover {
+    transform: translateY(-3px);
+}
+
+.form-control:focus {
+    background-color: #2b2b2b;
+    border-color: #4a90e2;
+    box-shadow: none;
+    color: white;
 }
 </style>
 @endsection
