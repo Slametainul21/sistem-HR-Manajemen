@@ -61,6 +61,8 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role_id' => ['required', 'string', 'in:0,1'],
             'department_id' => ['required', 'exists:tbl_departments,id'],
+        ], [
+            'password.confirmed' => 'The password confirmation does not match.',
         ]);
     }
 

@@ -26,11 +26,19 @@
         <!-- Search Bar -->
         <div class="row mb-4">
             <div class="col-md-6 mx-auto">
-                <div class="input-group">
-                    <span class="input-group-text bg-white border-end-0">
-                        <i class="fas fa-search text-primary"></i>
-                    </span>
-                    <input type="text" class="form-control border-start-0 ps-0" placeholder="Search materials...">
+                <div class="search-container mb-4">
+                    <form action="{{ route('employee.index') }}" method="GET">
+                        <div class="input-group">
+                            <input type="text" 
+                                   name="search" 
+                                   class="form-control" 
+                                   placeholder="Search materials..." 
+                                   value="{{ request('search') }}">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

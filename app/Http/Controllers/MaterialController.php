@@ -141,17 +141,15 @@ class MaterialController extends Controller
     public function destroy(Material $material)
     {
         // Delete the associated file if it exists
-        if ($material->file_path && Storage::exists($material->file_path)) {
+        if ($material->file_path) {
             Storage::delete($material->file_path);
         }
+        
+        // Delete the material
+        $material->departments()->detach(); // Remove department associations
+        $material->delete();
 
-        // Remove department associations
-        $material->departments()->detach();
-
-        // Soft delete or permanently delete the material
-        $material->archived = true;
-        $material->save();
-
-        return redirect()->route('hr.index')->with('success', 'Material deleted successfully');
+        return redirect()->route('hr.index')
+            ->with('success', 'Material deleted successfully');
     }
 }

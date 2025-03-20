@@ -69,16 +69,13 @@
                                             <span class="input-group-text bg-light border-0">
                                                 <i class="fas fa-building text-primary"></i>
                                             </span>
-                                            <select id="department_id" class="form-select border-0 bg-light @error('department_id') is-invalid @enderror" name="department_id" required>
+                                            <select id="department_id" class="form-select border-0 bg-light" name="department_id" required>
                                                 <option value="">Select Department</option>
                                                 @foreach($departments as $department)
                                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        @error('department_id')
-                                            <span class="invalid-feedback">{{ $message }}</span>
-                                        @enderror
                                     </div>
 
                                     <div class="form-group mb-4">
@@ -87,10 +84,12 @@
                                             <span class="input-group-text bg-light border-0">
                                                 <i class="fas fa-lock text-primary"></i>
                                             </span>
-                                            <input id="password" type="password" class="form-control border-0 bg-light @error('password') is-invalid @enderror" name="password" required>
+                                            <input id="password" type="password" 
+                                                   class="form-control border-0 bg-light @error('password') is-invalid @enderror" 
+                                                   name="password" required>
                                         </div>
                                         @error('password')
-                                            <span class="invalid-feedback">{{ $message }}</span>
+                                            <span class="invalid-feedback d-block">{{ $message }}</span>
                                         @enderror
                                     </div>
 
@@ -100,7 +99,9 @@
                                             <span class="input-group-text bg-light border-0">
                                                 <i class="fas fa-lock text-primary"></i>
                                             </span>
-                                            <input id="password-confirm" type="password" class="form-control border-0 bg-light" name="password_confirmation" required>
+                                            <input id="password-confirm" type="password" 
+                                                   class="form-control border-0 bg-light" 
+                                                   name="password_confirmation" required>
                                         </div>
                                     </div>
                                 </div>
@@ -150,3 +151,39 @@
 }
 </style>
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const roleSelect = document.getElementById('role_id');
+    const departmentSelect = document.getElementById('department_id');
+    const hrDepartmentId = "0"; // HR department ID
+    const hrRoleId = "0"; // HR role ID
+
+    // Disable the default "Select" options
+    roleSelect.querySelector('option[value=""]').disabled = true;
+    departmentSelect.querySelector('option[value=""]').disabled = true;
+
+    function updateDepartments() {
+        const selectedRole = roleSelect.value;
+        
+        Array.from(departmentSelect.options).forEach(option => {
+            if (option.value === hrDepartmentId) {
+                if (selectedRole === hrRoleId) {
+                    option.disabled = false;
+                    option.selected = true;
+                    departmentSelect.disabled = true;
+                } else {
+                    option.disabled = true;
+                    option.selected = false;
+                    departmentSelect.disabled = false;
+                }
+            } else if (option.value !== "") {
+                option.disabled = (selectedRole === hrRoleId);
+            }
+        });
+    }
+
+    roleSelect.addEventListener('change', updateDepartments);
+    updateDepartments();
+});
+</script>

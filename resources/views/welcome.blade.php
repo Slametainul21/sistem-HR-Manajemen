@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="landing-page">
+<div class="landing-page d-flex flex-column min-vh-100 bg-white">
     <!-- Hero Section -->
     <section class="hero min-vh-100 d-flex align-items-center">
         <div class="container">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <img src="{{ asset('images/employee.png') }}" alt="Hero" class="img-fluid">
+                    <img src="{{ asset('images/employee.png') }}" alt="Hero" class="img-fluid hero-image">
                 </div>
             </div>
         </div>
@@ -93,12 +93,23 @@
 
 <style>
 .landing-page {
-    margin-top: -24px; /* Offset for fixed navbar */
+    margin-top: -24px;
+    margin-bottom: 0;
 }
 
 .hero {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    position: relative;
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)), 
+                url('../images/background.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 100px 0;
+}
+
+.hero-image {
+    transform: scale(1.2);
+    margin: 20px 0;
 }
 
 .card {
@@ -119,4 +130,5 @@
     }
 }
 </style>
+@include('layouts.footer')
 @endsection
