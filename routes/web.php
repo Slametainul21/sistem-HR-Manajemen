@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     // Employee routes
     Route::middleware(['auth', 'employee'])->group(function () {
         Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
+        Route::get('/feedbacks/{feedback}/review', [FeedbackController::class, 'review'])->name('feedbacks.review');
         Route::post('/feedbacks/{feedback}/review', [FeedbackController::class, 'storeReview'])->name('feedbacks.storeReview');
     });
 });
