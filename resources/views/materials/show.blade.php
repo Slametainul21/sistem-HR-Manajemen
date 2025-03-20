@@ -43,23 +43,25 @@
                                         @endforeach
                                     </div>
                                 </div>
+
+                                @if ($material->feedbacks->count() > 0)
+                                    <div class="md-4">
+                                        <h5 class="text-muted mb-3">Feedback yang Diterima</h5>
+                                        <ul class="list-group">
+                                            @foreach ($material->feedbacks as $feedback)
+                                                <li class="list-group-item">
+                                                    <strong>{{ $feedback->user->name }}</strong> -
+                                                    <small
+                                                        class="text-muted">{{ \Carbon\Carbon::parse($feedback->created_at)->locale('id')->translatedFormat('j F Y H:i') }}</small>
+                                                    <p class="mb-0">{{ $feedback->content }}</p>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                             </div>
 
-                            @if ($material->feedbacks->count() > 0)
-                                <div class="mt-4">
-                                    <h5 class="text-muted mb-3">Feedback yang Diterima</h5>
-                                    <ul class="list-group">
-                                        @foreach ($material->feedbacks as $feedback)
-                                            <li class="list-group-item">
-                                                <strong>{{ $feedback->user->name }}</strong> -
-                                                <small
-                                                    class="text-muted">{{ \Carbon\Carbon::parse($feedback->created_at)->locale('id')->translatedFormat('j F Y H:i') }}</small>
-                                                <p class="mb-0">{{ $feedback->content }}</p>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+
 
                             <div class="col-md-4">
                                 <div class="card bg-light border-0">
