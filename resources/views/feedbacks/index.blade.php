@@ -35,7 +35,7 @@
                                     </td>
                                     <td>{{ $feedback->status }}</td>
                                     <td>
-                                        <a href="{{ route('feedbacks.show', $feedback->id) }}" class="btn btn-sm btn-info">View</a>
+                                        <a href="{{ route('feedbacks.review', $feedback->id) }}" class="btn btn-sm btn-info">View</a>
                                         @if(auth()->user()->role === 'hr' && !$feedback->reviews)
                                             <a href="{{ route('feedbacks.review', $feedback->id) }}" class="btn btn-sm btn-primary">Review</a>
                                         @endif
