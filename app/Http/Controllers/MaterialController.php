@@ -47,13 +47,11 @@ class MaterialController extends Controller
             'link' => 'nullable|url'
         ]);
 
-        $material = new Material($request->except('departments'));
+        $material = new Material($request->except(['departments', 'file']));
         
         if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('materials', $filename, 'public');
-            $data['file'] = $filename; // Make sure this line exists
+            $path = $request->file('file')->store('materials', 'public');
+            $material->file_path = $path;
         }
 
         $material->created_by = auth()->id();
