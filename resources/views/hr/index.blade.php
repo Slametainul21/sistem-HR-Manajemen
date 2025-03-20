@@ -45,7 +45,7 @@
                             <i class="fas fa-book fa-2x text-success"></i>
                         </div>
                         <h5 class="card-title mb-0">Total Materials</h5>
-                        <p class="display-6 mb-0 mt-2">{{ number_format($material->count(), 0, ',', '.') }}</p>
+                        <p class="display-6 mb-0 mt-2">{{ number_format($materials->count(), 0, ',', '.') }}</p>
                     </div>
                 </div>
             </div>
