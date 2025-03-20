@@ -27,17 +27,18 @@ class FeedbackController extends Controller
         return view('feedbacks.review', compact('feedback'));
     }
 
-    public function storeReview(Request $request, Feedback $feedback)
+    public function storeReview(Request $request, $materialId)
     {
-        $validated = $request->validate([
-            'hr_response' => 'required|string'
+        $request->validate([
+            'feedback' => 'required|string|max:500',
         ]);
 
-        $feedback->update([
-            'hr_response' => $validated['hr_response'],
-            'status' => 'reviewed'
+        Feedback::create([
+            'material_id' => $materialId,
+            'user_id' => auth()->id(),
+            'content' => $request->feedback,
         ]);
 
-        return redirect()->back()->with('success', 'Feedback reviewed successfully');
+        return back()->with('success', 'Feedback berhasil dikirim.');
     }
 }
