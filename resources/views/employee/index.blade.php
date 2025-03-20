@@ -15,7 +15,7 @@
                             </div>
                             <div class="dashboard-date">
                                 <i class="fas fa-calendar-alt me-2"></i>
-                                {{ now()->format('l, F j, Y') }}
+                                {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, j F Y') }}
                             </div>
                         </div>
                     </div>
