@@ -32,8 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('materials', MaterialController::class);
     Route::resource('feedbacks', FeedbackController::class);
     Route::get('/materials/{material}/download', [App\Http\Controllers\MaterialController::class, 'download'])->name('materials.download');
-    Route::get('/feedbacks/{feedback}/review', [FeedbackController::class, 'review'])->name('feedbacks.review');
-    Route::post('/feedbacks/{feedback}/review', [FeedbackController::class, 'storeReview'])->name('feedbacks.storeReview');
+    Route::post('/materials/{material}/feedback', [FeedbackController::class, 'store'])->name('materials.feedback.store');
 });
 
 // Add this to your existing routes
@@ -53,12 +52,11 @@ Route::middleware(['auth', 'hr'])->group(function () {
     Route::post('/materials', [MaterialController::class, 'store'])->name('materials.store');
     Route::get('/materials/{material}/edit', [MaterialController::class, 'edit'])->name('materials.edit');
     Route::put('/materials/{material}', [MaterialController::class, 'update'])->name('materials.update');
-    Route::delete('/materials/{material}', [MaterialController::class, 'destroy'])->name('materials.destroy');
-    
-    // Add these routes in your auth middleware group
-    Route::post('/materials/{material}/feedback', [FeedbackController::class, 'store'])->name('materials.feedback.store');
+    Route::delete('/materials/{material}', [MaterialController::class, 'destroy'])->name('materials.destroy');  
     
     // Add these in your HR middleware group
+    Route::get('/feedbacks/{feedback}/review', [FeedbackController::class, 'review'])->name('feedbacks.review');
+    Route::post('/feedbacks/{feedback}/review', [FeedbackController::class, 'storeReview'])->name('feedbacks.storeReview');
 });
 
 // Change the root route to point to welcome view
