@@ -126,7 +126,7 @@
                                     <i class="fas fa-eye text-muted me-1"></i>
                                     {{ $material->views }}
                                 </td>
-                                <td>{{ \Carbon\Carbon::($material->created_at)->translatedFormat('M d, Y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($material->created_at)->translatedFormat('M d, Y') }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('materials.show', $material->id) }}" 
