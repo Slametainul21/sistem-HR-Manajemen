@@ -116,7 +116,7 @@
                                             <div class="mt-4">
                                                 <h5 class="text-muted mb-3">Feedback yang Diterima</h5>
                                                 <ul class="list-group">
-                                                    @foreach ($materials->feedbacks as $feedback)
+                                                    @foreach ($material->feedbacks as $feedback)
                                                         <li class="list-group-item">
                                                             <strong>{{ $feedback->user->name }}</strong> -
                                                             <small
