@@ -56,6 +56,7 @@ Route::middleware(['auth', 'hr'])->group(function () {
     
     // Add these in your HR middleware group
     Route::get('/feedbacks/review', [FeedbackController::class, 'review'])->name('feedbacks.review');
+    Route::get('/feedbacks/{feedback}/review', [FeedbackController::class, 'show'])->name('feedbacks.show');
     Route::post('/feedbacks/{feedback}/review', [FeedbackController::class, 'storeReview'])->name('feedbacks.storeReview');
 });
 

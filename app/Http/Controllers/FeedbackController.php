@@ -27,7 +27,7 @@ class FeedbackController extends Controller
         return redirect()->back()->with('success', 'Feedback berhasil dikirim.');
     }
 
-    public function review(Feedback $feedback)
+    public function show(Feedback $feedback)
     {
         return view('feedbacks.review', compact('feedback'));
     }
