@@ -124,7 +124,7 @@
                                 </td>
                                 <td>
                                     <i class="fas fa-eye text-muted me-1"></i>
-                                    {{ $material->views }}
+                                    {{ number_format($material->views, 0, ',', '.') }}
                                 </td>
                                 <td>{{ \Carbon\Carbon::parse($material->created_at)->translatedFormat('M d, Y') }}</td>
                                 <td>

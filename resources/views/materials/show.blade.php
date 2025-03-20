@@ -107,7 +107,7 @@
                                             <h6 class="text-muted mb-2">Views</h6>
                                             <p class="mb-0">
                                                 <i class="fas fa-eye me-1"></i>
-                                                {{ $material->views }}
+                                                {{ number_format($material->views, 0, ',', '.') }}
                                             </p>
                                         </div>
 

@@ -76,7 +76,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="text-muted small">
                                 <i class="fas fa-eye me-1"></i>
-                                {{ $material->views }} views
+                                {{ number_format($material->views, 0, ',', '.') }} views
                                 <span class="mx-2">•</span>
                                 <i class="fas fa-calendar-alt me-1"></i>
                                 {{ $material->created_at->format('M d, Y') }}
