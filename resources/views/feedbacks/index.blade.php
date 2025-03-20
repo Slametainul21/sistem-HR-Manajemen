@@ -25,13 +25,19 @@
                                 <tr>
                                     <td>{{ $feedback->material->title }}</td>
                                     <td>{{ $feedback->user->name }}</td>
-                                    <td>{{ Str::limit($feedback->feedback, 100) }}</td>
-                                    <td>{{ $feedback->rating }}/5</td>
+                                    <td>{{ Str::limit($feedback->content, 100) }}</td>
+                                    <td>
+                                        @if($feedback->reviews)
+                                            {{ $feedback->reviews->score }}/5
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
                                     <td>{{ $feedback->status }}</td>
                                     <td>
                                         <a href="{{ route('feedbacks.show', $feedback->id) }}" class="btn btn-sm btn-info">View</a>
-                                        @if(auth()->user()->role === 'hr')
-                                        <a href="{{ route('feedbacks.review', $feedback->id) }}" class="btn btn-sm btn-primary">Review</a>
+                                        @if(auth()->user()->role === 'hr' && !$feedback->reviews)
+                                            <a href="{{ route('feedbacks.review', $feedback->id) }}" class="btn btn-sm btn-primary">Review</a>
                                         @endif
                                     </td>
                                 </tr>

@@ -55,7 +55,7 @@ Route::middleware(['auth', 'hr'])->group(function () {
     Route::delete('/materials/{material}', [MaterialController::class, 'destroy'])->name('materials.destroy');  
     
     // Add these in your HR middleware group
-    Route::get('/feedbacks/{feedback}/review', [FeedbackController::class, 'review'])->name('feedbacks.review');
+    Route::get('/feedbacks/review', [FeedbackController::class, 'review'])->name('feedbacks.review');
     Route::post('/feedbacks/{feedback}/review', [FeedbackController::class, 'storeReview'])->name('feedbacks.storeReview');
 });
 

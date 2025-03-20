@@ -74,6 +74,9 @@
             <div class="card-header bg-white border-0 py-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Learning Materials</h5>
+                    <a href="{{ route('feedbacks.review') }}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-star"></i> Review
+                    </a>                    
                     <div class="d-flex gap-2">
                         <form action="{{ route('hr.index') }}" method="GET" class="d-flex gap-2">
                             <input type="text" 

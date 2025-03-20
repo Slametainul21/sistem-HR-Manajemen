@@ -24,4 +24,9 @@ class Feedback extends Model
     {
         return $this->belongsTo(Material::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasOne(FeedbackReview::class, 'feedback_id');
+    }
 }

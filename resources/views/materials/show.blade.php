@@ -50,7 +50,7 @@
                                         method="POST">
                                         @csrf
                                         <div class="mb-3">
-                                            <textarea name="feedback" class="form-control" rows="3" placeholder="Tulis feedback Anda..." required></textarea>
+                                            <textarea name="content" class="form-control" rows="3" placeholder="Tulis feedback Anda..." required></textarea>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-sm">
                                             <i class="fas fa-paper-plane me-2"></i>Kirim Feedback
