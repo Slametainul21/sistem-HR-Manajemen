@@ -67,7 +67,7 @@
                                         <h6 class="text-muted mb-2">Created</h6>
                                         <p class="mb-0">
                                             <i class="fas fa-calendar me-1"></i>
-                                            {{ \Carbon\Carbon::$material->created_at->locale('id')->translatedFormat('l, j F Y') }}
+                                            {{ \Carbon\Carbon::parse($material->created_at)->locale('id')->translatedFormat('j F Y H:i') }}
                                         </p>
                                     </div>
 
