@@ -46,7 +46,7 @@
 
                                 <div class="mb-4">
                                     <h5 class="text-muted mb-3">Feedback</h5>
-                                    <form action="{{ route('feedbacks.storeReview', $material->id) }}"
+                                    <form action="{{ route('feedbacks.store', $material->id) }}"
                                         method="POST">
                                         @csrf
                                         <div class="mb-3">
