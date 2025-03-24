@@ -47,8 +47,8 @@
         <div class="row g-4">
             @foreach($materials as $material)
             <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm hover-card">
-                    <div class="card-body p-4">
+                <div class="card h-100 d-flex flex-column border-0 shadow-sm hover-card">
+                    <div class="card-body p-4 flex-grow-1 d-flex flex-column">
                         <div class="d-flex align-items-center mb-3">
                             <div class="material-icon rounded-circle bg-primary-subtle p-3 me-3">
                                 <i class="fas fa-file-alt text-primary fa-lg"></i>
@@ -60,11 +60,11 @@
                                 </span>
                             </div>
                         </div>
-
+            
                         <p class="card-text text-muted mb-3">
                             {{ Str::limit(strip_tags($material->description), 100) }}
                         </p>
-
+            
                         <div class="mb-3">
                             @foreach($material->departments as $department)
                                 <span class="badge bg-info-subtle text-info me-1 mb-1">
@@ -72,8 +72,8 @@
                                 </span>
                             @endforeach
                         </div>
-
-                        <div class="d-flex justify-content-between align-items-center">
+            
+                        <div class="mt-auto d-flex justify-content-between align-items-center">
                             <div class="text-muted small">
                                 <i class="fas fa-eye me-1"></i>
                                 {{ number_format($material->views, 0, ',', '.') }} views
@@ -87,7 +87,7 @@
                             </a>
                         </div>
                     </div>
-
+            
                     @if($material->file_path || $material->link)
                         <div class="card-footer bg-light border-0 py-3">
                             <div class="d-flex gap-2">
@@ -105,7 +105,7 @@
                         </div>
                     @endif
                 </div>
-            </div>
+            </div>            
             @endforeach
         </div>
     </div>
